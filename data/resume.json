@@ -1,0 +1,79 @@
+{
+  "name": "Samuel Jose",
+  "title": "Security-Focused Engineer",
+  "objective": "Security-focused engineer with experience in system hardening, vulnerability assessment, API development, and cloud-based data workflows. Background includes securing distributed systems, supporting zero-trust environments, and building Python-driven data and automation solutions. Strong in translating technical findings into actionable improvements across security and operational teams.",
+  "contact": {
+    "email": "abjsam34@gmail.com",
+    "phone": "734-837-0632",
+    "github": "https://github.com/joeB0dy",
+    "linkedin": "https://www.linkedin.com/in/sammyjoe/"
+  },
+  "education": [
+    {
+      "school": "University of Michigan – Dearborn",
+      "location": "Dearborn, Michigan",
+      "degree": "Bachelor of Science",
+      "major": "Computer and Information Sciences",
+      "concentration": "Information Systems",
+      "graduated": "December 2023"
+    }
+  ],
+  "skills": {
+    "languages": ["C", "C++", "JavaScript", "MySQL", "Python", "Kotlin"],
+    "software": [
+      "VS Code", "Eclipse IDE", "CPanel", "Azure Machine Learning Studios",
+      "Microsoft Power BI", "Microsoft Office", "Firebase", "Android Studios",
+      "MySQL", "VMware", "Docker", "GitHub", "Kali Linux", "Ubuntu Linux"
+    ],
+    "frameworks": ["Vue", "React", "Node.js", "NumPy", "MatPlotLib", "PyTorch", "Pandas"]
+  },
+  "experience": [
+    {
+      "company": "Huffmasters LLC",
+      "location": "Clarkston, MI",
+      "role": "Virtual Security Lead",
+      "start": "September 2024",
+      "end": "January 2026",
+      "bullets": [
+        "Led system hardening efforts to mitigate social engineering and network-based threats.",
+        "Conducted vulnerability assessments on network ports and system configurations.",
+        "Managed secure alert routing, remote access control systems, and zero-trust operational workflows.",
+        "Maintained audit-ready logging and security monitoring through Avigilon systems.",
+        "Directed secure data migration from CSV sources to relational databases, improving data integrity and accessibility.",
+        "Operated ticketing systems to triage, track, and resolve security and system issues."
+      ]
+    },
+    {
+      "company": "Yazaki North America",
+      "location": "Canton, MI",
+      "role": "Intern – Information Systems (EDS Team)",
+      "start": "May 2023",
+      "end": "August 2023",
+      "bullets": [
+        "Built Python-based machine learning models (NumPy, Pandas, Scikit Learn) for cost estimation.",
+        "Developed REST and SOAR API integrations in Azure and Power Apps to automate data pipelines.",
+        "Delivered data visualization and workflow improvements using Microsoft ecosystem tools.",
+        "Presented technical solutions and documentation to engineering leadership."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Multilingual Dictionary",
+      "category": "Senior Design Capstone",
+      "bullets": [
+        "Developed full-stack web application (React + Spring Boot) with database integration.",
+        "Managed backend deployment, troubleshooting, and production updates via GitHub workflows.",
+        "Designed structured data migration (JSON to database) and maintained system documentation."
+      ]
+    },
+    {
+      "name": "Paper Review System",
+      "category": "Information Systems",
+      "bullets": [
+        "Designed system architecture, data flows, and REST API-backed prototype.",
+        "Created UML diagrams and database schema models."
+      ]
+    }
+  ]
+}
