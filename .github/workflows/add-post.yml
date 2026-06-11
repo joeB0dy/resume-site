@@ -22,8 +22,11 @@ permissions:
   id-token: write
 
 jobs:
-  add-post:
+  add-post-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -37,39 +40,36 @@ jobs:
           python3 - <<'EOF'
           import json, os
           path = 'data/posts.json'
-          posts = json.loads(open(path).read())
+          posts = [p for p in json.loads(open(path).read()) if p.get("id")]
           new_post = {
             "id": os.environ["POST_ID"],
             "date": os.environ["POST_DATE"],
             "text": os.environ["POST_TEXT"],
             "url": os.environ["POST_URL"],
           }
-          if not any(p.get("id") == new_post["id"] for p in posts if p):
+          if not any(p["id"] == new_post["id"] for p in posts):
             posts.insert(0, new_post)
-            open(path, 'w').write(json.dumps(posts, indent=2))
             print("Added:", new_post["id"])
           else:
             print("Already exists, skipping.")
+          open(path, 'w').write(json.dumps(posts, indent=2))
           EOF
 
-      - name: Commit updated posts.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Commit posts.json and rebuilt out/
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/posts.json
+          git add data/posts.json out/
           git diff --staged --quiet || git commit -m "chore: add linkedin post ${{ github.event.inputs.id }}"
           git push
-
-  build-and-deploy:
-    needs: add-post
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
 
       - uses: actions/upload-pages-artifact@v3
         with:
