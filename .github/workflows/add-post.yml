@@ -1,0 +1,86 @@
+name: Add LinkedIn Post
+
+on:
+  workflow_dispatch:
+    inputs:
+      id:
+        description: Post ID
+        required: true
+      date:
+        description: Post date (YYYY-MM-DD)
+        required: true
+      text:
+        description: Post text
+        required: true
+      url:
+        description: Post URL
+        required: true
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  add-post:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Append post to posts.json
+        env:
+          POST_ID: ${{ github.event.inputs.id }}
+          POST_DATE: ${{ github.event.inputs.date }}
+          POST_TEXT: ${{ github.event.inputs.text }}
+          POST_URL: ${{ github.event.inputs.url }}
+        run: |
+          python3 - <<'EOF'
+          import json, os
+          path = 'data/posts.json'
+          posts = json.loads(open(path).read())
+          new_post = {
+            "id": os.environ["POST_ID"],
+            "date": os.environ["POST_DATE"],
+            "text": os.environ["POST_TEXT"],
+            "url": os.environ["POST_URL"],
+          }
+          if not any(p["id"] == new_post["id"] for p in posts):
+            posts.insert(0, new_post)
+            open(path, 'w').write(json.dumps(posts, indent=2))
+            print(f"Added post {new_post['id']}")
+          else:
+            print("Post already exists, skipping.")
+          EOF
+
+      - name: Commit updated posts.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/posts.json
+          git diff --staged --quiet || git commit -m "chore: add linkedin post ${{ github.event.inputs.id }}"
+          git push
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm install
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    needs: add-post
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
