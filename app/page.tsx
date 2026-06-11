@@ -4,6 +4,7 @@ import { ExperienceCard } from "@/components/ExperienceCard";
 import { ProjectCard } from "@/components/ProjectCard";
 import { SkillsSection } from "@/components/SkillsSection";
 import { EducationCard } from "@/components/EducationCard";
+import { FadeIn } from "@/components/FadeIn";
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
@@ -25,35 +26,49 @@ export default function Home() {
 
       <main className="max-w-4xl mx-auto px-6 py-12 space-y-14">
         <section>
-          <SectionTitle>Experience</SectionTitle>
+          <FadeIn>
+            <SectionTitle>Experience</SectionTitle>
+          </FadeIn>
           <div className="space-y-4">
             {resume.experience.map((job, i) => (
-              <ExperienceCard key={i} job={job} />
+              <FadeIn key={i} delay={i * 100}>
+                <ExperienceCard job={job} />
+              </FadeIn>
             ))}
           </div>
         </section>
 
         <section>
-          <SectionTitle>Projects</SectionTitle>
+          <FadeIn>
+            <SectionTitle>Projects</SectionTitle>
+          </FadeIn>
           <div className="grid sm:grid-cols-2 gap-4">
             {resume.projects.map((project, i) => (
-              <ProjectCard key={i} project={project} />
+              <FadeIn key={i} delay={i * 100}>
+                <ProjectCard project={project} />
+              </FadeIn>
             ))}
           </div>
         </section>
 
         <section>
-          <SectionTitle>Skills</SectionTitle>
-          <SkillsSection skills={resume.skills} />
+          <FadeIn>
+            <SectionTitle>Skills</SectionTitle>
+          </FadeIn>
+          <FadeIn delay={100}>
+            <SkillsSection skills={resume.skills} />
+          </FadeIn>
         </section>
 
         <section>
-          <SectionTitle>Education</SectionTitle>
-          <div className="space-y-4">
-            {resume.education.map((edu, i) => (
-              <EducationCard key={i} edu={edu} />
-            ))}
-          </div>
+          <FadeIn>
+            <SectionTitle>Education</SectionTitle>
+          </FadeIn>
+          {resume.education.map((edu, i) => (
+            <FadeIn key={i} delay={100}>
+              <EducationCard edu={edu} />
+            </FadeIn>
+          ))}
         </section>
       </main>
 
