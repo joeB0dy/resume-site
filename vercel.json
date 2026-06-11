@@ -1,3 +1,5 @@
 {
-  "installCommand": "npm install"
+  "installCommand": "echo skip",
+  "buildCommand": "echo skip",
+  "outputDirectory": "out"
 }
