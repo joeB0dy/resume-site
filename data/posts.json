@@ -1,5 +1,11 @@
 [
   {
+    "id": "live-test-2",
+    "date": "2026-06-11",
+    "text": "Dynamic feed is now live! Posts update instantly without rebuilding the site. Zapier integration complete.",
+    "url": "https://www.linkedin.com/in/sammyjoe/"
+  },
+  {
     "id": "test-zapier-1",
     "date": "2026-06-11",
     "text": "Testing the Zapier to GitHub Pages pipeline. If you see this post on the site, the integration is working!",
