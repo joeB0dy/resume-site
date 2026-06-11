@@ -1,5 +1,4 @@
 import resume from "@/data/resume.json";
-import posts from "@/data/posts.json";
 import { HeroSection } from "@/components/HeroSection";
 import { ExperienceCard } from "@/components/ExperienceCard";
 import { ProjectCard } from "@/components/ProjectCard";
@@ -76,7 +75,7 @@ export default function Home() {
         </main>
 
         <FadeIn>
-          <LinkedInFeed posts={posts} />
+          <LinkedInFeed />
         </FadeIn>
       </div>
 
