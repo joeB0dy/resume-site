@@ -24,9 +24,9 @@ export function HeroSection({
         <Image
           src="/resume-site/profile.jpg"
           alt={name}
-          width={96}
-          height={96}
-          className="rounded-full mx-auto mb-6 border-4 border-cyan-400 shadow-lg"
+          width={144}
+          height={144}
+          className="rounded-full mx-auto mb-6 border-4 border-cyan-400 shadow-lg w-28 h-28 sm:w-36 sm:h-36 object-cover"
           unoptimized
         />
         <h1 className="text-5xl font-bold mb-2">{name}</h1>
