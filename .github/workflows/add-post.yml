@@ -24,9 +24,6 @@ permissions:
 jobs:
   add-post:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
@@ -47,12 +44,12 @@ jobs:
             "text": os.environ["POST_TEXT"],
             "url": os.environ["POST_URL"],
           }
-          if not any(p["id"] == new_post["id"] for p in posts):
+          if not any(p.get("id") == new_post["id"] for p in posts if p):
             posts.insert(0, new_post)
             open(path, 'w').write(json.dumps(posts, indent=2))
-            print(f"Added post {new_post['id']}")
+            print("Added:", new_post["id"])
           else:
-            print("Post already exists, skipping.")
+            print("Already exists, skipping.")
           EOF
 
       - name: Commit updated posts.json
@@ -63,24 +60,20 @@ jobs:
           git diff --staged --quiet || git commit -m "chore: add linkedin post ${{ github.event.inputs.id }}"
           git push
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - run: npm install
-      - run: npm run build
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: out
-
-  deploy:
+  build-and-deploy:
     needs: add-post
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
       - uses: actions/deploy-pages@v4
         id: deployment
