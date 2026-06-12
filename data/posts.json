@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "id": "real-post-1",
+    "date": "2026-06-12",
+    "text": "Zapier pipeline test \u2014 if this shows on the feed at joeb0dy.github.io/resume-site the live integration is working end to end!",
+    "url": "https://www.linkedin.com/in/sammyjoe/"
+  }
+]
