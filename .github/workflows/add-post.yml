@@ -24,6 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Pull latest before editing
+        run: git pull --rebase origin main
 
       - name: Append post to posts.json
         env:
@@ -50,10 +56,12 @@ jobs:
           open(path, 'w').write(json.dumps(posts, indent=2))
           EOF
 
-      - name: Commit posts.json
+      - name: Commit and push posts.json
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add data/posts.json
-          git diff --staged --quiet || git commit -m "chore: add linkedin post ${{ github.event.inputs.id }}"
-          git push
+          git diff --staged --quiet && echo "No changes" && exit 0
+          git commit -m "chore: add linkedin post ${{ github.event.inputs.id }}"
+          git pull --rebase origin main
+          git push origin main
